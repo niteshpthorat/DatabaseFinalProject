@@ -5,7 +5,10 @@ import java.sql.Date;
 public class Album {
     private int albumId;
     private String title;
-    private Date dateCopyRight;
+	public Album() {
+		super();
+	}
+	private Date dateCopyRight;
     private String format;
     private String musSSN;
 	/**

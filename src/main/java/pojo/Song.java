@@ -18,6 +18,12 @@ public class Song {
 		this.idSong = idSong;
 	}
 	/**
+	 * 
+	 */
+	public Song() {
+		super();
+	}
+	/**
 	 * @return the title
 	 */
 	public String getTitle() {

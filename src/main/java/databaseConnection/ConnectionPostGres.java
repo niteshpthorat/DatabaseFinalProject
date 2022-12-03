@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionPostGres {
+	public ConnectionPostGres() {
+		super();
+	}
+
 	/**
 	 * @return
 	 * @throws SQLException
