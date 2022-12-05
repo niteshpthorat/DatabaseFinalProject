@@ -56,7 +56,7 @@ public class DeleteSong extends HttpServlet {
                 throw new ServletException(e);
             }
         }
-        request.getRequestDispatcher("WEB-INF/select/index.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
     }
 
 }

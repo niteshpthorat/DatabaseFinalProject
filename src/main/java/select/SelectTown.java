@@ -36,7 +36,7 @@ public class SelectTown extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Town> pl = new ArrayList<Town>();
+        List<Town> addresses = new ArrayList<Town>();
         Connection connection = null;
         try {
             connection = ConnectionPostGres.getConnection();
@@ -47,11 +47,11 @@ public class SelectTown extends HttpServlet {
 
 
             while (rs.next()) {
-                Town a = new Town();
-                a.setId(rs.getInt("id"));
-                a.setAddress(rs.getString("address"));
-                a.setPhoneNumber(rs.getString("phone_no"));
-                pl.add(a);
+                Town tow = new Town();
+                tow.setId(rs.getInt("id"));
+                tow.setAddress(rs.getString("address"));
+                tow.setPhoneNumber(rs.getString("phone_no"));
+                addresses.add(tow);
             }
         } catch (SQLException e) {
             throw new ServletException(e);
@@ -65,7 +65,7 @@ public class SelectTown extends HttpServlet {
                 throw new ServletException(e);
             }
         }
-        getServletContext().setAttribute("pl", pl);
+        getServletContext().setAttribute("addresses", addresses);
 
 
         request.getRequestDispatcher("WEB-INF/select/SelectTown.jsp").forward(request, response);

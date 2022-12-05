@@ -40,6 +40,6 @@
 		</table>
 	</form>
 </div>
-<a href="WEB-INF/index.jsp">back to home</a>
+<a href="Home">back to home</a>
 </body>
 </html>

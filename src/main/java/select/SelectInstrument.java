@@ -36,7 +36,7 @@ public class SelectInstrument extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Instrument> instr = new ArrayList<Instrument>();
+        List<Instrument> instruments = new ArrayList<Instrument>();
         Connection connncetion = null;
         try {
             connncetion = ConnectionPostGres.getConnection();
@@ -54,7 +54,7 @@ public class SelectInstrument extends HttpServlet {
                 instrum.setName(rs.getString("INST_NAME"));
                 instrum.setKeys(rs.getString("MUSICAL_KEYS"));
 
-                instr.add(instrum);
+                instruments.add(instrum);
             }
         } catch (SQLException e) {
             throw new ServletException(e);
@@ -68,7 +68,7 @@ public class SelectInstrument extends HttpServlet {
                 throw new ServletException(e);
             }
         }
-        getServletContext().setAttribute("instr", instr);
+        getServletContext().setAttribute("instr", instruments);
 
 
         request.getRequestDispatcher("WEB-INF/select/SelectInstrument.jsp").forward(request, response);

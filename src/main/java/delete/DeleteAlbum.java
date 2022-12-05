@@ -42,7 +42,7 @@ public class DeleteAlbum extends HttpServlet {
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, id);
             ps.executeUpdate();
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
         } catch (SQLException e) {
             getServletContext().setAttribute("de", "Album cannot be deleted. Album must be empty.");
             request.getRequestDispatcher("WEB-INF/select/SelectAlbum.jsp").forward(request, response);

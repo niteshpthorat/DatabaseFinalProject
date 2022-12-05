@@ -63,7 +63,7 @@ public class InsertMusician extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String ssn = request.getParameter("ssn");
         String name = request.getParameter("name");
-        String phone_no = request.getParameter("phone_no");
+        String phoneNumber = request.getParameter("phoneNumber");
         Connection c = null;
         try {
             String sql = "INSERT INTO Musician VALUES (?,?,?,?) ";
@@ -73,7 +73,7 @@ public class InsertMusician extends HttpServlet {
             ps.setInt(1, maxMus);
             ps.setString(2, ssn);
             ps.setString(3, name);
-            ps.setString(4, phone_no);
+            ps.setString(4, phoneNumber);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new ServletException(e);
@@ -87,7 +87,6 @@ public class InsertMusician extends HttpServlet {
                 throw new ServletException(e);
             }
         }
-        response.sendRedirect("selectMusician.java");
-        //request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
     }
 }

@@ -34,7 +34,7 @@
 		<button type="submit" class="btn btn-primary">Submit</button>
 	</form>
 	</div>
-	<a href="WEB-INF/index.jsp">back to home</a>
+	<a href="Home">back to home</a>
 	</main>
 </body>
 </html>

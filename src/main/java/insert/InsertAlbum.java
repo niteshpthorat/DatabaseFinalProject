@@ -93,6 +93,6 @@ public class InsertAlbum extends HttpServlet {
             }
         }
         //response.sendRedirect("selectMusician.java");
-        request.getRequestDispatcher("WEB-INF/select/SelectAlbum.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
     }
 }

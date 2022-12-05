@@ -21,18 +21,17 @@
 	<div class="container">
 		<form action="InsertAddress" method="post">
 			<div class="form-outline mb-4">
-				<input type="text" id="form7Example4" class="form-control" /> <label
+				<input type="text" id="form7Example4" class="form-control" name = "address" /> <label
 					class="form-label" for="form7Example4">Address</label>
 			</div>
 			<div class="form-outline mb-3" style="width: 100%; max-width: 22rem">
-				<input type="text" id="phone" class="form-control"
-					data-mdb-input-mask="+1 999-999-999" /> <label class="form-label"
-					for="phone">Phone number with country code</label>
+				<input type="text" id="phone" class="form-control" name = "phoneNumber" /> <label class="form-label"
+					for="phone">Phone number</label>
 			</div>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 	</div>
 	</main>
-	<a href="WEB-INF/index.jsp">back to home</a>
+	<a href="Home">back to home</a>
 </body>
 </html>

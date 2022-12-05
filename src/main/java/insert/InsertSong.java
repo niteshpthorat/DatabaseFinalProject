@@ -2,10 +2,11 @@ package insert;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.sql.Statement;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,11 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import databaseConnection.ConnectionPostGres;
 
-@WebServlet("/InsertAddress")
-public class InsertAddress extends HttpServlet {
+@WebServlet("/InsertSong")
+public class InsertSong extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    int maxId = 0;
-    public InsertAddress() {
+    int maxSongId = 0;
+
+    public InsertSong() {
         super();
     }
 
@@ -33,46 +35,48 @@ public class InsertAddress extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Connection connection = null;
+        Connection c = null;
         
         try {
-            connection = ConnectionPostGres.getConnection();
+            c = ConnectionPostGres.getConnection();
 
-            String sql = "SELECT MAX(ID) FROM TOWN ";
-
-            PreparedStatement st = connection.prepareStatement(sql);
+            String sql = "SELECT MAX(ID_SONG) FROM SONG ";
+            PreparedStatement st = c.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                maxId = rs.getInt(1) + 1;
+                maxSongId = rs.getInt(1) + 1;
             }
         } catch (SQLException e) {
             throw new ServletException(e);
         } finally {
             try {
-                if (connection != null) {
+                if (c != null) {
                     System.out.println("Connection CLOSED");
-                    connection.close();
+                    c.close();
                 }
             } catch (SQLException e) {
                 throw new ServletException(e);
             }
         }
-        request.getRequestDispatcher("WEB-INF/insert/InsertAddress.jsp").forward(request, response);
+        request.getRequestDispatcher("insert/InsertSong.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String address = request.getParameter("address");
-        System.out.println(address);
-        String phoneNumber = request.getParameter("phoneNumber");
+        String songTitle = request.getParameter("songTitle");
+        String author = request.getParameter("author");
+        String idAlbum = request.getParameter("idAlbum");
+
         Connection c = null;
         try {
-            String sql = "INSERT INTO Town VALUES (?,?,?) ";
+            String sql = "INSERT INTO Song(SONG_ID,TITLE,AUTHOR,ALBUM_ID) VALUES (?,?,?,?);";
             System.out.println(sql);
-            c = ConnectionPostGres.getConnection() ;
+            c = ConnectionPostGres.getConnection();
+
             PreparedStatement ps = c.prepareStatement(sql);
-            ps.setInt(1, maxId);
-            ps.setString(2, address);
-            ps.setString(3, phoneNumber);
+            ps.setInt(1, maxSongId);
+            ps.setString(2, songTitle);
+            ps.setString(3, author);
+            ps.setInt(4, Integer.parseInt(idAlbum));
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new ServletException(e);
@@ -80,13 +84,13 @@ public class InsertAddress extends HttpServlet {
             try {
                 if (c != null) {
                     c.close();
-                    System.out.println("Connection Closed: Insert Musician");
+                    System.out.println("Connection Closed: Insert Song");
                 }
             } catch (SQLException e) {
                 throw new ServletException(e);
             }
         }
-       // response.sendRedirect("selectMusician.java");
+        //response.sendRedirect("selectMusician.java");
         request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
     }
 }

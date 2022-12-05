@@ -24,23 +24,21 @@
 				<span class="input-group-text" id="inputGroup-sizing-default">SSN</span>
 				<input type="text" class="form-control"
 					aria-label="Sizing example input"
-					aria-describedby="inputGroup-sizing-default">
+					aria-describedby="inputGroup-sizing-default" name = "ssn">
 			</div>
 			<div class="input-group">
 				<span class="input-group-text">First and last name</span> <input
-					type="text" aria-label="First name" class="form-control"> <input
-					type="text" aria-label="Last name" class="form-control">
+					type="text" aria-label="Full Name" class="form-control" name = "name">
 			</div>
 			<div class="form-group">
-				<label for="phonenum">Phone Number (format: xxx-xxxx-xxx):</label><br />
-				<input id="phonenum" type="tel" pattern="^\d{3}-\d{4}-\d{3}$"
-					required>
+				<label for="phonenum">Phone Number :</label><br />
+				<input id="phonenum" type="tel"  name = "phoneNumber">
 
 			</div>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 	</div>
-	<a href="WEB-INF/index.jsp">back to home</a>
+	<a href="Home">back to home</a>
 	</main>
 </body>
 </html>
