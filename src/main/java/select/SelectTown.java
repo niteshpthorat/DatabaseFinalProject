@@ -16,13 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import databaseConnection.ConnectionPostGres;
-import pojo.Performance;
+import pojo.Town;
 
-@WebServlet("/SelectPerformance")
-public class SelectPerformance extends HttpServlet {
+@WebServlet("/SelectTown")
+public class SelectTown extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public SelectPerformance() {
+    public SelectTown() {
         super();
     }
 
@@ -36,22 +36,22 @@ public class SelectPerformance extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Performance> performances = new ArrayList<Performance>();
+        List<Town> pl = new ArrayList<Town>();
         Connection connection = null;
         try {
-        	connection = ConnectionPostGres.getConnection();
+            connection = ConnectionPostGres.getConnection();
 
-            String sql = "SELECT * from PERFORMANCE ORDER BY id_perf ASC;";
+            String sql = "SELECT * from TOWN ORDER BY ID ASC;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
 
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
-                Performance performance = new Performance();
-                performance.setIdPerformance(rs.getInt("id_perf"));
-                performance.setIdSong(rs.getInt("id_song"));
-                performance.setMusSSN(rs.getString("mus_ssn"));
-                performances.add(performance);
+                Town a = new Town();
+                a.setId(rs.getInt("id"));
+                a.setAddress(rs.getString("address"));
+                a.setPhoneNumber(rs.getString("phone_no"));
+                pl.add(a);
             }
         } catch (SQLException e) {
             throw new ServletException(e);
@@ -65,10 +65,10 @@ public class SelectPerformance extends HttpServlet {
                 throw new ServletException(e);
             }
         }
-        getServletContext().setAttribute("performances", performances);
+        getServletContext().setAttribute("pl", pl);
 
 
-        request.getRequestDispatcher("WEB-INF/select/SelectPerformance.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/select/SelectTown.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

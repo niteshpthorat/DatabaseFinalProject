@@ -6,9 +6,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -60,13 +57,10 @@ public class InsertAlbum extends HttpServlet {
                 throw new ServletException(e);
             }
         }
-        request.getRequestDispatcher("WEB-INF/insert/insertAlbum.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/insert/InsertAlbum.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
-
-    	
     	
     	String identifier = request.getParameter("identifier");
         String title = request.getParameter("title");
@@ -99,6 +93,6 @@ public class InsertAlbum extends HttpServlet {
             }
         }
         //response.sendRedirect("selectMusician.java");
-        request.getRequestDispatcher("WEB-INF/select/selectAlbum.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/select/SelectAlbum.jsp").forward(request, response);
     }
 }

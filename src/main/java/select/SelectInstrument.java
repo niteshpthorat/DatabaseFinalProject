@@ -16,13 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import databaseConnection.ConnectionPostGres;
-import pojo.Performance;
+import pojo.Instrument;
 
-@WebServlet("/SelectPerformance")
-public class SelectPerformance extends HttpServlet {
+@WebServlet("/SelectInstrument")
+public class SelectInstrument extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public SelectPerformance() {
+    public SelectInstrument() {
         super();
     }
 
@@ -36,39 +36,42 @@ public class SelectPerformance extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Performance> performances = new ArrayList<Performance>();
-        Connection connection = null;
+        List<Instrument> instr = new ArrayList<Instrument>();
+        Connection connncetion = null;
         try {
-        	connection = ConnectionPostGres.getConnection();
+            connncetion = ConnectionPostGres.getConnection();
 
-            String sql = "SELECT * from PERFORMANCE ORDER BY id_perf ASC;";
+            String sql = "SELECT * from INSTRUMENT ORDER BY ID_INSTRU ASC;";
 
-            PreparedStatement st = connection.prepareStatement(sql);
+            PreparedStatement st = connncetion.prepareStatement(sql);
+
             ResultSet rs = st.executeQuery();
 
+
             while (rs.next()) {
-                Performance performance = new Performance();
-                performance.setIdPerformance(rs.getInt("id_perf"));
-                performance.setIdSong(rs.getInt("id_song"));
-                performance.setMusSSN(rs.getString("mus_ssn"));
-                performances.add(performance);
+                Instrument instrum = new Instrument();
+                instrum.setIdInstrument(rs.getInt("ID_INSTRU"));
+                instrum.setName(rs.getString("INST_NAME"));
+                instrum.setKeys(rs.getString("MUSICAL_KEYS"));
+
+                instr.add(instrum);
             }
         } catch (SQLException e) {
             throw new ServletException(e);
         } finally {
             try {
-                if (connection != null) {
+                if (connncetion != null) {
                     System.out.println("Connection CLOSED");
-                    connection.close();
+                    connncetion.close();
                 }
             } catch (SQLException e) {
                 throw new ServletException(e);
             }
         }
-        getServletContext().setAttribute("performances", performances);
+        getServletContext().setAttribute("instr", instr);
 
 
-        request.getRequestDispatcher("WEB-INF/select/SelectPerformance.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/select/SelectInstrument.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

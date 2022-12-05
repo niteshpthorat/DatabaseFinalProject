@@ -2,12 +2,12 @@ package select;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,7 +41,7 @@ public class SelectMusician extends HttpServlet {
         try {
         	connection = ConnectionPostGres.getConnection();
 
-            String sql = "SELECT * FROM MUSICIAN ORDER BY ID_MUSICIAN ASC;";
+            String sql = "SELECT * FROM MUSICIAN MUS INNER JOIN TOWN TOW ON MUS.PHONE_NO = TOW.PHONE_NO ORDER BY ID_MUSICIAN ASC;";
 
             PreparedStatement st = connection.prepareStatement(sql);
 
@@ -52,6 +52,7 @@ public class SelectMusician extends HttpServlet {
                 musician.setSsn(rs.getString("SSN"));
                 musician.setName(rs.getString("M_NAME"));
                 musician.setPhoneNo(rs.getString("PHONE_NO"));
+                musician.setAddress(rs.getString("ADDRESS"));
                 musicians.add(musician);
             }
         } catch (SQLException e) {

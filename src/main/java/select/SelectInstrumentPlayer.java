@@ -16,13 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import databaseConnection.ConnectionPostGres;
-import pojo.Performance;
+import pojo.InstrumentPlayer;
 
-@WebServlet("/SelectPerformance")
-public class SelectPerformance extends HttpServlet {
+@WebServlet("/SelectInstrumentPlayer")
+public class SelectInstrumentPlayer extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public SelectPerformance() {
+    public SelectInstrumentPlayer() {
         super();
     }
 
@@ -34,24 +34,24 @@ public class SelectPerformance extends HttpServlet {
             throw new ServletException(e);
         }
     }
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Performance> performances = new ArrayList<Performance>();
+        List<InstrumentPlayer> instrplayer = new ArrayList<InstrumentPlayer>();
         Connection connection = null;
         try {
-        	connection = ConnectionPostGres.getConnection();
+            connection = ConnectionPostGres.getConnection();
 
-            String sql = "SELECT * from PERFORMANCE ORDER BY id_perf ASC;";
+            String sql = "SELECT * from INSTRUMENT_PLAYER ORDER BY ID_INST_PLA ASC;";
 
             PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
 
+            ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Performance performance = new Performance();
-                performance.setIdPerformance(rs.getInt("id_perf"));
-                performance.setIdSong(rs.getInt("id_song"));
-                performance.setMusSSN(rs.getString("mus_ssn"));
-                performances.add(performance);
+                InstrumentPlayer a = new InstrumentPlayer();
+                a.setId(rs.getInt("ID_INST_PLA"));
+                a.setIdInstrument(rs.getInt("ID_INSTRU"));
+                a.setMusSSN(rs.getString("MUS_SSN"));
+
+                instrplayer.add(a);
             }
         } catch (SQLException e) {
             throw new ServletException(e);
@@ -65,10 +65,8 @@ public class SelectPerformance extends HttpServlet {
                 throw new ServletException(e);
             }
         }
-        getServletContext().setAttribute("performances", performances);
-
-
-        request.getRequestDispatcher("WEB-INF/select/SelectPerformance.jsp").forward(request, response);
+        getServletContext().setAttribute("instrplayer", instrplayer);
+        request.getRequestDispatcher("WEB-INF/select/SelectInstrumentPlayer.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

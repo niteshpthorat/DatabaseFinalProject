@@ -19,7 +19,7 @@
 			<input type="text" class="form-control" name="dateCopyright"  placeholder="Enter Copyright Date"></input>
 		</div>
 		<div class="form-group">
-			<label for="format">Album's Format (CD,DVD)</label>
+			<label for="format">Album's Format </label>
 			<input type="text" class="form-control" name="format"  placeholder="Enter Album's Format"></input>
 		</div>
 		<div class="form-group">
@@ -34,6 +34,7 @@
 		<button type="submit" class="btn btn-primary">Submit</button>
 	</form>
 	</div>
+	<a href="WEB-INF/index.jsp">back to home</a>
 	</main>
 </body>
 </html>

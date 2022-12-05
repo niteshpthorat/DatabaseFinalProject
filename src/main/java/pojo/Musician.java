@@ -5,6 +5,7 @@ public class Musician {
     private String ssn;  
     private String name;
     private String phoneNo;
+    private String address;
     
     public Musician() {
 		super();
@@ -57,6 +58,20 @@ public class Musician {
 	 */
 	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(String address) {
+		this.address = address;
 	} 
 
 
